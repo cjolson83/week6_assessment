@@ -1,12 +1,13 @@
-
 import { Builder, Capabilities, By } from "selenium-webdriver"
 
 require('chromedriver')
 
 const driver = new Builder().withCapabilities(Capabilities.chrome()).build()
 
+const {draw, botDisplay} = require('./duelFunctions.js')
+
 beforeEach(async () => {
-    driver.get('http://localhost:3000/')
+    driver.get('http://localhost:4000/')
 })
 
 afterAll(async () => {
@@ -20,17 +21,11 @@ test('Title shows up when page loads', async () => {
 })
 
 test('Bot choices are displayed when Draw button is clicked', async () => {
-    await driver.findElement(By.id('draw')).click()
+    draw(driver)
     await driver.sleep(2000)
-    const choices = await driver.findElement(By.id('choices'))
-    const displayed = await choices.isDisplayed()
-    expect(displayed).toBe(true)
 })
 
 test('Bot choices are displayed in Your Duo section once Add to Duo button is clicked', async () => {
-    await driver.findElement(By.name('bot-btn')).click()
+    botDisplay(driver)
     await driver.sleep(2000)
-    const playerDuo = await driver.findElement(By.id('player-duo'))
-    const displayed = await playerDuo.isDisplayed()
-    expect(displayed).toBe(true)
 })
