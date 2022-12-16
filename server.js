@@ -16,8 +16,7 @@ app.use(express.json())
 app.use(express.static('public'))
 
 app.get('/', (req,res) => {
-   // console.log(__dirname)
-   res.status(200).sendFile(path.join(__dirname, '../public/index.html'))
+   res.status(200).sendFile(path.join(__dirname, './public/index.html'))
 })
 
 
